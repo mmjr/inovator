@@ -11,6 +11,10 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 		state('home', {
 			url: '/',
 			templateUrl: 'modules/core/views/home.client.view.html'
-		});
-	}
+		}).state('list', {
+                url: '/list',
+                templateUrl: 'modules/core/views/list.client.view.html'
+            });
+
+    }
 ]);

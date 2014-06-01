@@ -1,29 +1,29 @@
 <section class="col-xs-offset-2 col-xs-8 col-md-offset-2 col-md-8" data-ng-controller="ArticlesController" data-ng-init="findOne()">
-	<div class="page-header">
-		<h1 data-ng-bind="article.title"></h1>
+    <div style="position: absolute;right: 0;top: 50px;" data-ng-show="authentication.user._id == article.user._id">
+        <a title="edit" class="btn btn-primary" href="/#!/articles/{{article._id}}/edit">
+            <i class="glyphicon glyphicon-edit"></i>
+        </a>
+        <a title="delete" class="btn btn-primary" data-ng-click="remove();">
+            <i class="glyphicon glyphicon-trash"></i>
+        </a>
+    </div>
+    <div class="page-header">
+		<h1 style="word-wrap: break-word; width: 80%" data-ng-bind="article.title"></h1>
 	</div>
-	<div class="pull-right" data-ng-show="authentication.user._id == article.user._id">
-		<a class="btn btn-primary" href="/#!/articles/{{article._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
-	</div>
-
 
     <br/>
     <br/>
-    Content:
-	<p class="lead" data-ng-bind="article.content"></p>
-
-    <br/>
-    <br/>
-    Current Members:
-    <ul class="list-group">
-        <li class="list-group-item" ng-repeat="member in article.members">
-            <a href="/#!/email?article={{article._id}}">{{member.displayName}}</a>
-    </ul>
+    <div  style="font-size:150%; word-wrap: break-word; height: 250px" class="well well-lg" data-ng-bind="article.content"></div>
+    <div style="width: 30%; margin-top: 50px">
+        <div>Members:</div>
+        <br/>
+        <ul class="list-group ">
+            <li class="list-group-item" ng-repeat="member in article.members">
+                {{member.displayName}}
+                <br/>
+                <a title="Email {{member.displayName}}" href="/#!/email?article={{article._id}}">{{member.email}}</a>
+        </ul>
+    </div>
     <br/>
     <br/>
     <small>

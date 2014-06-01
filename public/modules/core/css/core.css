@@ -1,3 +1,175 @@
+
+body{
+    background-color: #666;
+}
+.multiSelect.inlineBlock {
+    display: inline-block;
+}
+
+/* multi select button style */
+.multiSelect .button {
+    display: block;
+    position: relative;
+    margin:0 auto;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid #c6c6c6;
+    padding: 7px 12px 5px;
+    font-size: 14px;
+    line-height: 1.4;
+    border-radius: 2px;
+    color: #333;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    white-space:normal;
+    background-color: #fff;
+    background-image: linear-gradient(#fff, #e4e4e4);
+
+}
+
+.multiSelect .button:hover {
+    background-image: linear-gradient(#fff, #eee);
+}
+
+/* helper buttons style (select all, none, reset, clear filter); */
+.multiSelect .helperButton {
+    display: inline-block;
+    text-align: center;
+    vertical-align: top;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    padding: 2px 7px;
+    font-size: 14px;
+    line-height: 1;
+    border-radius: 2px;
+    color: #666;
+}
+
+.multiSelect .button > div {
+    float: left;
+}
+
+.multiSelect .checkboxLayer {
+    background-color: #fff;
+    position: absolute;
+    z-index: 999;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    background-clip: padding-box;
+    padding: 15px;
+    min-width:270px;
+}
+
+.multiSelect .caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 15px !important;
+    vertical-align: middle;
+    border-top: 4px solid #333;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+    border-bottom: 0 dotted;
+}
+
+.multiSelect.multiSelectItem {
+    display: block;
+    min-height: 30px;
+    color: #777;
+}
+
+.multiSelect .vertical {
+    float: none;
+}
+
+.multiSelect .horizontal {
+    float: left;
+}
+
+.multiSelect .acol {
+    display: table-cell;
+    line-height: 1.4;
+    min-width: 14px;
+}
+
+
+label.multiSelect span {
+    white-space:nowrap;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+/* hide the checkbox away */
+.multiSelect .checkbox {
+    position: absolute;
+    left: -9999px;
+    cursor: pointer;
+}
+
+.multiSelect .show {
+    display: inline-block;
+}
+
+.multiSelect .hide {
+    display: none;
+}
+
+.multiSelect .line {
+    margin-bottom: 15px;
+}
+
+.multiSelect .helperButton + .helperButton  {
+    margin-left: 1px;
+}
+
+/* On mouse over and focus */
+label.multiSelect input:focus ~ span::after,
+label.multiSelect span:focus::after,
+label.multiSelect span:hover::after {
+    /* Enable this if you want some arrow pointer */
+     content: ' \00AB';
+}
+
+label.multiSelect input:focus ~ span,
+label.multiSelect span:hover {
+    color: #333;
+    cursor: pointer;
+    /* Enable this if you want some arrow pointer */
+     content: ' \00AB';
+}
+
+/* for checkboxes currently selected */
+.multiSelect .checkboxSelected {
+    color: #000;
+    text-shadow: 1px 0 #eee;
+}
+
+/* checkboxes currently disabled */
+.multiSelect.disabled, .multiSelect.disabled:hover {
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+/* If you use images in button / checkbox label, you might want to change the image style here.. */
+.multiSelect img {
+    vertical-align: middle;
+    margin-bottom:3px;
+    height: 22px;
+    width:22px;
+}
+
 .content {
 	margin-top: 50px;
 }
@@ -8,30 +180,111 @@
 	display: none !important;
 }
 body{
-    background-color: #F7EDED;
+    background-color: white;
 }
 .inventionsList{
     list-style: none;
     padding: 0;
 }
+.inventionsList *{
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+
+}
 .inventionsList li{
+
     min-width: 200px;
-    min-height: 300px;
+    min-height: 220px;
     overflow: hidden;
     width: 13.6%;
     font-size: 15px;
     float: left;
-    height: 115px;
     padding: 10px;
     margin: 5px;
     line-height: 1.4;
     text-align: center;
-    background-color: #b9def0;
     box-sizing: border-box;
-    color: #333;
     cursor: pointer;
-    border: 1px solid #000000;
-    border-radius: 5px;
+    box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+    text-decoration:none;
+    color:#000;
+    background:#ffc;
+    font-family:"Reenie Beanie",arial,sans-serif;
+    -moz-box-shadow:5px 5px 7px rgba(33,33,33,1);
+    -webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+    box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+    -moz-transition:-moz-transform .15s linear;
+    -o-transition:-o-transform .15s linear;
+    -webkit-transition:-webkit-transform .15s linear;
+}
+
+.inventionsList li:nth-child(even) {
+    -o-transform:rotate(4deg);
+    -webkit-transform:rotate(4deg);
+    -moz-transform:rotate(4deg);
+    -o-transform:rotate(4deg);
+    -webkit-transform:rotate(4deg);
+    -moz-transform:rotate(4deg);
+    position:relative;
+    top:18px;
+    background:#cfc;
+}
+.inventionsList li:nth-child(3n) {
+    -o-transform:rotate(-3deg);
+    -webkit-transform:rotate(-3deg);
+    -moz-transform:rotate(-3deg);
+    position:relative;
+    -o-transform:rotate(-3deg);
+    -webkit-transform:rotate(-3deg);
+    -moz-transform:rotate(-3deg);
+    top:-15px;
+    background:#ccf;
+}
+.inventionsList li:nth-child(5n) {
+    -o-transform:rotate(5deg);
+    -webkit-transform:rotate(5deg);
+    -moz-transform:rotate(5deg);
+    position:relative;
+    top:-30px;
+}
+.inventionsList li:nth-child(6n) {
+    -o-transform:rotate(-10deg);
+    -webkit-transform:rotate(-10deg);
+    -moz-transform:rotate(-10deg);
+    position:relative;
+    top:0;
+}
+.inventionsList li:nth-child(9n) {
+    -o-transform:rotate(20deg);
+    -webkit-transform:rotate(20deg);
+    -moz-transform:rotate(20deg);
+    position:relative;
+    top:0;
+}
+.inventionsList li:nth-child(14n) {
+    -o-transform:rotate(-8deg);
+    -webkit-transform:rotate(-8deg);
+    -moz-transform:rotate(-8deg);
+    position:relative;
+    top:15px;
+}
+
+.inventionsList li:hover, .inventionsList li:focus{
+    -moz-box-shadow:10px 10px 7px rgba(0,0,0,.7);
+    -webkit-box-shadow: 10px 10px 7px rgba(0,0,0,.7);
+    box-shadow:10px 10px 7px rgba(0,0,0,.7);
+    -webkit-transform: scale(1.25);
+    -moz-transform: scale(1.25);
+    -o-transform: scale(1.25);
+    position:relative;
+    z-index:5;
+}
+
+.inventionsList li{
+    font-family: 'Reenie Beanie', cursive;
+    font-size:180%;
 }
 
 .inventionsList .inventor, .inventionsList .title {
@@ -48,12 +301,34 @@ body{
     display: inline-block;
     margin-top: 10px;
     font-weight: bold;
+    font-size:100%;
+    padding-bottom:10px;
 }
 
 .inventionsList .description{
     position: relative;
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 15px;
     text-overflow: ellipsis;
+    max-height: 120%;
+    width: 80%;
+    word-wrap: break-word;
+    font-size:100%;
 
+}
+.timerContiner{
+    width: 45%;
+    margin-left: 1%;
+    position: absolute;
+    top: 30%;
+}
+.timerHome {
+    font-weight: bold;
+    font-size: 50px;
+    font-family: monospace;
+
+}
+
+.signContainer {
+    margin-left: 30%;
 }
