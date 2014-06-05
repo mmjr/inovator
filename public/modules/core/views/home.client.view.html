@@ -1,14 +1,14 @@
 <section data-ng-controller="HomeController">
-    <img src="modules/core/img/idea2.jpg" style="float:right; height: 900px; width: 60%">
+    <img src="modules/core/img/idea2.jpg" style="float:right; box-sizing: intial; width: 60%">
     <div class="timerContiner">
-        <timer class="timerHome" end-time="1403298000000">{{days}} days, {{hours}} hours, {{minutes}} minutes and {{seconds}} seconds to go!</timer>
+        <timer class="timerHome" end-time="1403470800000">{{days}} days, {{hours}} hours, {{minutes}} minutes and {{seconds}} seconds to go!</timer>
         <br/>
         <br/>
         <br/>
         <div class="signContainer" data-ng-hide="authentication.user">
             <h2 style="margin-left: -90px;">So What Are You Waiting For?</h2>
             <br/>
-            <button ng-click="go('/signin')" class="btn btn-default">Sign Up</button>
+            <button ng-click="go('/signup')" class="btn btn-default">Sign Up</button>
             <button  ng-click="go('/signin')" style="margin-left: 10px" class="btn btn-default">Sign In</button>
         </div>
     </div>

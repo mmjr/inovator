@@ -7,7 +7,9 @@ var ApplicationConfiguration = function () {
         'ngResource',
         'ui.router',
         'ui.bootstrap',
-        'ui.utils'
+        'ui.utils',
+        'multi-select',
+        'timer'
       ];
     // Add a new vertical module
     var registerModule = function (moduleName) {
@@ -83,6 +85,18 @@ angular.module('articles').controller('ArticlesController', [
   'Users',
   function ($scope, $stateParams, $location, Authentication, Articles, $http, Users) {
     $scope.authentication = Authentication;
+    $scope.membersSelected = [];
+    $scope.membersToShowSelected = [];
+    var updateMembers = function () {
+      $scope.article.members = [$scope.article.members.shift()];
+      $scope.users.some(function (user) {
+        return $scope.membersToShowSelected.forEach(function (selMember) {
+          if (user._id === selMember._id) {
+            $scope.article.members.push(user);
+          }
+        });
+      });
+    };
     $scope.create = function () {
       var article = new Articles({
           title: this.title,
@@ -107,11 +121,12 @@ angular.module('articles').controller('ArticlesController', [
         }
       } else {
         $scope.article.$remove(function () {
-          $location.path('/');
+          $location.path('/list');
         });
       }
     };
     $scope.update = function () {
+      updateMembers();
       var article = $scope.article;
       article.$update(function () {
         $location.path('articles/' + article._id);
@@ -124,8 +139,49 @@ angular.module('articles').controller('ArticlesController', [
       $scope.users = Users.query();
     };
     $scope.findOne = function () {
-      $scope.article = Articles.get({ articleId: $stateParams.articleId });
-      $scope.users = Users.query();
+      Articles.get({ articleId: $stateParams.articleId }, function (article) {
+        $scope.article = article;
+        //$scope.article.content = $scope.article.content.replace(/(?:\r\n|\r|\n)/g, '<br />');
+        $scope.users = Users.query(function (data) {
+          function amISelected(id) {
+            return article.members.some(function (member) {
+              if (member._id === id) {
+                return true;
+              }
+            });
+          }
+          $scope.membersSelected.length = 0;
+          data.forEach(function (user) {
+            if (user._id === $scope.article.user._id) {
+              return;
+            }
+            var listItem = {
+                displayName: user.displayName,
+                goodAt: user.goodAt,
+                _id: user._id,
+                selected: amISelected(user._id)
+              };
+            $scope.membersSelected.push(listItem);
+          });
+        });
+      });
+      function refresh() {
+        angular.element(document.querySelector('.multiSelect button')).triggerHandler('click');
+      }
+      setTimeout(refresh, 200);
+    };
+    $scope.filterMeOut = function (user) {
+      // Do some tests
+      if (user._id === $scope.authentication.user._id) {
+        return false;  // this will be listed in the results
+      }
+      return true;  // otherwise it won't be within the results
+    };
+    $scope.thisItemIsDisabled = function () {
+      if ($scope.membersToShowSelected.length >= 4) {
+        return false;
+      }
+      return true;
     };
   }
 ]);'use strict';
@@ -147,6 +203,9 @@ angular.module('core').config([
     $stateProvider.state('home', {
       url: '/',
       templateUrl: 'modules/core/views/home.client.view.html'
+    }).state('list', {
+      url: '/list',
+      templateUrl: 'modules/core/views/list.client.view.html'
     });
   }
 ]);'use strict';
@@ -173,7 +232,66 @@ angular.module('core').controller('HomeController', [
   'Authentication',
   'Articles',
   function ($scope, $location, Authentication, Articles) {
-    $scope.inventions = Articles.query();
+    $scope.authentication = Authentication;
+    $scope.go = function (path) {
+      $location.path(path);
+    };
+    var slides = $scope.slides = [];
+    $scope.myInterval = 5000;
+    Articles.query(function (data) {
+      data.forEach(function (article) {
+        var newWidth = 600 + slides.length;
+        slides.push(article);
+      });
+    });
+  }
+]);'use strict';
+angular.module('core').controller('ListController', [
+  '$scope',
+  '$location',
+  'Authentication',
+  'Articles',
+  function ($scope, $location, Authentication, Articles) {
+    $scope.articles = Articles.query();
+    $scope.quotes = [
+      {
+        author: 'Mason Cooley',
+        text: 'Art begins in imitation and ends in innovation'
+      },
+      {
+        author: 'W. Edwards Deming',
+        text: 'Innovation comes from the producer - not from the customer'
+      },
+      {
+        author: 'Anna Eshoo',
+        text: 'Innovation is the calling card of the future'
+      },
+      {
+        author: 'John Emmerling',
+        text: 'Innovation is creativity with a job to do'
+      },
+      {
+        author: 'Albert Einstein',
+        text: 'The true sign of intelligence is not knowledge but imagination'
+      },
+      {
+        author: 'Albert Einstein',
+        text: 'The hardest thing to understand in the world is the income tax'
+      },
+      {
+        author: 'Albert Einstein',
+        text: 'Two things are infinite: the universe and human stupidity, and Im not sure about the universe'
+      },
+      {
+        author: 'Steve Jobs',
+        text: 'I want to put a ding in the universe'
+      },
+      {
+        author: 'Douglas Adams',
+        text: 'Dont Panic!'
+      }
+    ];
+    $scope.quote = $scope.quotes[Math.floor(Math.random() * $scope.quotes.length)];
     $scope.go = function (path, articleId) {
       $location.path(path + '/' + articleId);
     };
@@ -383,7 +501,7 @@ angular.module('users').controller('AuthenticationController', [
         //If successful we assign the response to the global user model
         $scope.authentication.user = response;
         //And redirect to the index page
-        $location.path('/');
+        $location.path('/list');
       }).error(function (response) {
         $scope.error = response.message;
       });
@@ -393,7 +511,7 @@ angular.module('users').controller('AuthenticationController', [
         //If successful we assign the response to the global user model
         $scope.authentication.user = response;
         //And redirect to the index page
-        $location.path('/');
+        $location.path('/list');
       }).error(function (response) {
         $scope.error = response.message;
       });
@@ -415,7 +533,7 @@ angular.module('users').controller('EmailController', [
     }
     $scope.email = function () {
       var artId = $location.search().article;
-      jQuery('body').css('cursor', 'progress');
+      angular.element(document.querySelector('body')).css('cursor', 'progress');
       $scope.article = Articles.get({ articleId: artId }, function () {
         $http.post('/email', {
           'user': $scope.authentication.user,
@@ -423,7 +541,7 @@ angular.module('users').controller('EmailController', [
           'subject': $scope.subject,
           'content': $scope.content
         }).success(function (data, status, headers, config) {
-          jQuery('body').css('cursor', 'default');
+          angular.element(document.querySelector('body')).css('cursor', 'default');
           if (data.success) {
             $window.history.back();
             console.log(data);

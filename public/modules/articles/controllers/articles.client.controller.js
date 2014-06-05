@@ -68,10 +68,13 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
 		};
 
 		$scope.findOne = function() {
-			$scope.article = Articles.get({
+			Articles.get({
 				articleId: $stateParams.articleId
             },
                 function (article){
+                    $scope.article = article;
+
+                    //$scope.article.content = $scope.article.content.replace(/(?:\r\n|\r|\n)/g, '<br />');
                     $scope.users = Users.query(function (data){
                             function amISelected(id){
                               return  article.members.some(function(member){
@@ -112,6 +115,17 @@ angular.module('articles').controller('ArticlesController', ['$scope', '$statePa
 
             return true; // otherwise it won't be within the results
         };
+
+        $scope.thisItemIsDisabled = function(){
+            if($scope.membersToShowSelected.length >= 4){
+                return false;
+            }
+            return true;
+        };
+
+
+
+
 
 
     }

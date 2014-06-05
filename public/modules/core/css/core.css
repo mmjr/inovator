@@ -56,7 +56,8 @@ body{
     background-color: #fff;
     position: absolute;
     z-index: 999;
-    border: 1px solid rgba(0, 0, 0, 0.15);
+    border: 1px solid #000000;
+    opacity: 0.15;
     border-radius: 4px;
     -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
     -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
@@ -191,12 +192,12 @@ body{
     -khtml-user-select: none;
     -webkit-user-select: none;
     -o-user-select: none;
-
+    -ms-user-select: none;
+    user-select: none;
 }
 .inventionsList li{
-
     min-width: 200px;
-    min-height: 220px;
+    height: 220px;
     overflow: hidden;
     width: 13.6%;
     font-size: 15px;
@@ -207,7 +208,6 @@ body{
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
-    box-shadow: 5px 5px 7px rgba(33,33,33,.7);
     text-decoration:none;
     color:#000;
     background:#ffc;
@@ -224,9 +224,8 @@ body{
     -o-transform:rotate(4deg);
     -webkit-transform:rotate(4deg);
     -moz-transform:rotate(4deg);
-    -o-transform:rotate(4deg);
-    -webkit-transform:rotate(4deg);
-    -moz-transform:rotate(4deg);
+    -ms-transform:rotate(4deg);
+    transform:rotate(4deg);
     position:relative;
     top:18px;
     background:#cfc;
@@ -235,10 +234,9 @@ body{
     -o-transform:rotate(-3deg);
     -webkit-transform:rotate(-3deg);
     -moz-transform:rotate(-3deg);
+    -ms-transform:rotate(-3deg);
+    transform:rotate(-3deg);
     position:relative;
-    -o-transform:rotate(-3deg);
-    -webkit-transform:rotate(-3deg);
-    -moz-transform:rotate(-3deg);
     top:-15px;
     background:#ccf;
 }
@@ -246,6 +244,8 @@ body{
     -o-transform:rotate(5deg);
     -webkit-transform:rotate(5deg);
     -moz-transform:rotate(5deg);
+    -ms-transform:rotate(5deg);
+    transform:rotate(5deg);
     position:relative;
     top:-30px;
 }
@@ -253,6 +253,8 @@ body{
     -o-transform:rotate(-10deg);
     -webkit-transform:rotate(-10deg);
     -moz-transform:rotate(-10deg);
+    -ms-transform:rotate(-10deg);
+    transform:rotate(-10deg);
     position:relative;
     top:0;
 }
@@ -260,6 +262,8 @@ body{
     -o-transform:rotate(20deg);
     -webkit-transform:rotate(20deg);
     -moz-transform:rotate(20deg);
+    -ms-transform:rotate(20deg);
+    transform:rotate(20deg);
     position:relative;
     top:0;
 }
@@ -267,6 +271,8 @@ body{
     -o-transform:rotate(-8deg);
     -webkit-transform:rotate(-8deg);
     -moz-transform:rotate(-8deg);
+    -ms-transform:rotate(-8deg);
+    transform:rotate(-8deg);
     position:relative;
     top:15px;
 }
@@ -278,6 +284,8 @@ body{
     -webkit-transform: scale(1.25);
     -moz-transform: scale(1.25);
     -o-transform: scale(1.25);
+    -ms-transform: scale(1.25);
+    transform: scale(1.25);
     position:relative;
     z-index:5;
 }
@@ -303,6 +311,7 @@ body{
     font-weight: bold;
     font-size:100%;
     padding-bottom:10px;
+    font-family: initial;
 }
 
 .inventionsList .description{
@@ -324,7 +333,7 @@ body{
 }
 .timerHome {
     font-weight: bold;
-    font-size: 50px;
+    font-size: 325%;
     font-family: monospace;
 
 }

@@ -15,7 +15,7 @@ angular.module('core').controller('HomeController', ['$scope', '$location','Auth
             data.forEach(function (article){
                 var newWidth = 600 + slides.length;
                 slides.push(article);
-            })
+            });
 
         });
 
