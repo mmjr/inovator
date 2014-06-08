@@ -2,7 +2,7 @@
 // Init the application configuration module for AngularJS application
 var ApplicationConfiguration = function () {
     // Init module configuration options
-    var applicationModuleName = 'inovator';
+    var applicationModuleName = 'ideas';
     var applicationModuleVendorDependencies = [
         'ngResource',
         'ui.router',
@@ -84,6 +84,43 @@ angular.module('articles').controller('ArticlesController', [
   '$http',
   'Users',
   function ($scope, $stateParams, $location, Authentication, Articles, $http, Users) {
+    var units = [
+        {
+          name: 'second',
+          limit: 60,
+          in_seconds: 1
+        },
+        {
+          name: 'minute',
+          limit: 3600,
+          in_seconds: 60
+        },
+        {
+          name: 'hour',
+          limit: 86400,
+          in_seconds: 3600
+        },
+        {
+          name: 'day',
+          limit: 604800,
+          in_seconds: 86400
+        },
+        {
+          name: 'week',
+          limit: 2629743,
+          in_seconds: 604800
+        },
+        {
+          name: 'month',
+          limit: 31556926,
+          in_seconds: 2629743
+        },
+        {
+          name: 'year',
+          limit: null,
+          in_seconds: 31556926
+        }
+      ];
     $scope.authentication = Authentication;
     $scope.membersSelected = [];
     $scope.membersToShowSelected = [];
@@ -141,7 +178,6 @@ angular.module('articles').controller('ArticlesController', [
     $scope.findOne = function () {
       Articles.get({ articleId: $stateParams.articleId }, function (article) {
         $scope.article = article;
-        //$scope.article.content = $scope.article.content.replace(/(?:\r\n|\r|\n)/g, '<br />');
         $scope.users = Users.query(function (data) {
           function amISelected(id) {
             return article.members.some(function (member) {
@@ -169,6 +205,34 @@ angular.module('articles').controller('ArticlesController', [
         angular.element(document.querySelector('.multiSelect button')).triggerHandler('click');
       }
       setTimeout(refresh, 200);
+    };
+    $scope.addComment = function (content) {
+      var article = $scope.article;
+      article.comments.push({
+        author: $scope.authentication.user,
+        date: new Date(),
+        content: $scope.comment
+      });
+      article.$update(function () {
+        $location.path('articles/' + article._id);
+      }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+      $scope.comment = '';
+    };
+    $scope.timeAgo = function (time) {
+      var diff = (new Date() - new Date(time)) / 1000;
+      if (diff < 1)
+        return '1 sec';
+      var i = 0;
+      var unit = units[i++];
+      while (unit) {
+        if (diff < unit.limit || !unit.limit) {
+          diff = Math.floor(diff / unit.in_seconds);
+          return diff + ' ' + unit.name + (diff > 1 ? 's' : '');
+        }
+        unit = units[i++];
+      }
     };
     $scope.filterMeOut = function (user) {
       // Do some tests
@@ -206,6 +270,9 @@ angular.module('core').config([
     }).state('list', {
       url: '/list',
       templateUrl: 'modules/core/views/list.client.view.html'
+    }).state('details', {
+      url: '/details',
+      templateUrl: 'modules/core/views/details.client.view.html'
     });
   }
 ]);'use strict';
@@ -529,7 +596,7 @@ angular.module('users').controller('EmailController', [
     $scope.authentication = Authentication;
     //If user is signed in then redirect back home
     if (!$scope.authentication.user) {
-      $location.path('/');
+      $location.path('/signin');
     }
     $scope.email = function () {
       var artId = $location.search().article;

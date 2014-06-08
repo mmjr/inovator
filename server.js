@@ -3,7 +3,7 @@
  * Module dependencies.
  */
 
-//process.env.NODE_ENV = 'production';
+process.env.NODE_ENV = 'production';
 var init = require('./config/init')(),
 	config = require('./config/config'),
 	mongoose = require('mongoose');

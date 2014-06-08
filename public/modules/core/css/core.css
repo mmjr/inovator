@@ -278,7 +278,8 @@ body{
 }
 
 .inventionsList li:hover, .inventionsList li:focus{
-    -moz-box-shadow:10px 10px 7px rgba(0,0,0,.7);
+    min-height: 220px;
+    -moz-box-shadow: 10px 10px 7px rgba(0,0,0,.7);
     -webkit-box-shadow: 10px 10px 7px rgba(0,0,0,.7);
     box-shadow:10px 10px 7px rgba(0,0,0,.7);
     -webkit-transform: scale(1.25);
@@ -311,20 +312,27 @@ body{
     font-weight: bold;
     font-size:100%;
     padding-bottom:10px;
-    font-family: initial;
+    font-family: "Bookman", Georgia, "Times New Roman", serif;
 }
 
 .inventionsList .description{
     position: relative;
     display: inline-block;
-    margin-top: 15px;
     text-overflow: ellipsis;
-    max-height: 120%;
     width: 80%;
     word-wrap: break-word;
     font-size:100%;
-
 }
+
+.inventionsList .members{
+    position: relative;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    font-size:40%;
+    margin-bottom: 5px;
+    font-family: "Bookman", Georgia, "Times New Roman", serif;
+}
+
 .timerContiner{
     width: 45%;
     margin-left: 1%;
@@ -341,3 +349,42 @@ body{
 .signContainer {
     margin-left: 30%;
 }
+
+.coreBG {
+    position: absolute;
+    right: 0;
+    background-image: url("../modules/core/img/idea2.jpg");
+    width: 60%;
+    height: 92%;
+    background-size: cover;
+}
+
+.listQuote{
+    font-size: 150%;
+    font-family: Garamond;
+    font-style: italic;
+}
+
+.articleContentWell{
+    position: relative;
+    font-size:150%;
+    word-wrap: break-word;
+    min-height: 250px;
+    white-space: pre-wrap;
+}
+
+.membersList{
+    width: 30%;
+    margin-top: 50px
+}
+
+.commentListItem {
+    list-style-type: none;
+}
+.commentBefore{
+    margin-left: 10px;
+    color: #999;
+    display: inline-block;
+    font-size: 11px;
+}
+

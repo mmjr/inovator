@@ -26,16 +26,16 @@ var ArticleSchema = new Schema({
 		trim: true
 	},
 	user: {
-            type: Schema.ObjectId,
-            ref: 'User'
-	},
-    userMail: {
         type: Schema.ObjectId,
-        ref: 'user'
-    },
+         ref: 'User'
+	},
     members: {
         type: Array,
         default: []
+    },
+    comments: {
+        type: [{}],
+        ref: 'comments'
     }
 
 });

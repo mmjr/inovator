@@ -14,7 +14,10 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 		}).state('list', {
                 url: '/list',
                 templateUrl: 'modules/core/views/list.client.view.html'
-            });
+        }).state('details', {
+                url: '/details',
+                templateUrl: 'modules/core/views/details.client.view.html'
+        });
 
     }
 ]);
