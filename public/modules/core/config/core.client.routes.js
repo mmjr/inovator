@@ -17,7 +17,10 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
         }).state('details', {
                 url: '/details',
                 templateUrl: 'modules/core/views/details.client.view.html'
-        });
+        }).state('prizes', {
+                url: '/prizes',
+                templateUrl: 'modules/core/views/prizes.client.view.html'
+            });
 
     }
 ]);

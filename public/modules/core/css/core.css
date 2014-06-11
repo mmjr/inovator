@@ -53,11 +53,12 @@ body{
 }
 
 .multiSelect .checkboxLayer {
+    max-height:3450px;
+    overflow: auto;
     background-color: #fff;
     position: absolute;
     z-index: 999;
     border: 1px solid #000000;
-    opacity: 0.15;
     border-radius: 4px;
     -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
     -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
@@ -187,7 +188,13 @@ body{
     list-style: none;
     padding: 0;
 }
-.inventionsList *{
+@media (min-width: 200px) and (max-width: 1300px){
+    .inventionsList {
+        margin-left: 60px;
+    }
+}
+
+    .inventionsList *{
     -moz-user-select: none;
     -khtml-user-select: none;
     -webkit-user-select: none;
@@ -387,4 +394,21 @@ body{
     display: inline-block;
     font-size: 11px;
 }
+
+.prizesList{
+    height: 889px;
+    width: 100%;
+}
+
+.prizesList img{
+    margin-top: 50px;
+    height: 250px;
+    width: 175px;
+}
+
+.prizesList h1{
+    margin-top: 150px;
+}
+
+
 

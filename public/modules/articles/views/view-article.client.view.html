@@ -14,6 +14,14 @@
     <br/>
     <br/>
     <div class="articleContentWell well well-lg" data-ng-bind="article.content"></div>
+    <small>
+        <em class="text-muted">
+            Invented on
+            <span data-ng-bind="article.created | date:'mediumDate'"></span>
+            by
+            <span data-ng-bind="article.user.displayName"></span>
+        </em>
+    </small>
     <div class="membersList">
         <div>Members:</div>
         <br/>
@@ -24,21 +32,14 @@
                 <a title="Email {{member.displayName}}" href="mailto:{{member.email}}">{{member.email}}</a>
         </ul>
     </div>
-    <small>
-        <em class="text-muted">
-            Invented on
-            <span data-ng-bind="article.created | date:'mediumDate'"></span>
-            by
-            <span data-ng-bind="article.user.displayName"></span>
-        </em>
-    </small>
+
     <div class="page-header">
     </div>
     <div style="width: 100%; margin-top: 50px; margin-left: 15px">
         <div>ALL COMMENTS({{article.comments.length}})</div>
         <br/>
         <form ng-submit="addComment()"  data-ng-show="authentication.user">
-            <textarea  placeholder="Share your thoughts" style="resize: none; width: 100%" data-ng-model="comment"></textarea>
+            <textarea placeholder="Share your thoughts" style="resize: none; width: 100%" data-ng-model="comment"></textarea>
             <button style="float: right" type="submit" class="btn btn-primary" data-ng-disabled="!comment.length">Post</button>
         </form>
         <br/>
