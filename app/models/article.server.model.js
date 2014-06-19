@@ -36,7 +36,12 @@ var ArticleSchema = new Schema({
     comments: {
         type: [{}],
         ref: 'comments'
+    },
+    committed: {
+        type: Boolean,
+        default: false
     }
+
 
 });
 

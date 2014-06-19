@@ -273,10 +273,30 @@ angular.module('core').config([
     }).state('details', {
       url: '/details',
       templateUrl: 'modules/core/views/details.client.view.html'
+    }).state('committed', {
+      url: '/committed',
+      templateUrl: 'modules/core/views/committed.client.view.html'
     }).state('prizes', {
       url: '/prizes',
       templateUrl: 'modules/core/views/prizes.client.view.html'
     });
+  }
+]);'use strict';
+angular.module('core').controller('CommittedController', [
+  '$scope',
+  '$location',
+  'Authentication',
+  'Articles',
+  function ($scope, $location, Authentication, Articles) {
+    $scope.articles = Articles.query();
+    $scope.authentication = Authentication;
+    $scope.oneAtATime = false;
+    $scope.isCommitted = function (article) {
+      return article.committed;
+    };
+    $scope.go = function (path, articleId) {
+      $location.path(path + '/' + articleId);
+    };  // This provides Authentication context.
   }
 ]);'use strict';
 angular.module('core').controller('HeaderController', [
